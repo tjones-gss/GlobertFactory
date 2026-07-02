@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Globert Smoke Tests</title>
+<link rel="icon" href="../glogo.svg" type="image/svg+xml">
+</head>
+<body>
+<pre id="out">Running...</pre>
+<script src="../sim.js?v=2"></script>
+<script src="../floor.js?v=2"></script>
+<script src="../erp.js?v=2"></script>
+<script src="../chapters.js?v=2"></script>
+<script src="../levels.js?v=2"></script>
+<script src="../adventure.js?v=5"></script>
+<script src="../tutorial.js?v=1"></script>
+<script src="../release.js?v=1"></script>
+<script>
+(async function(){
+  const results=[];
+  function ok(name,pass,detail){results.push({name,pass,detail:detail||''});}
+  function stubDom(){
+    document.body.insertAdjacentHTML('beforeend',`
+      <div id="toasts"></div><div id="adventurePanel"></div><div id="adventureOffice"></div>
+      <div id="invList"></div><span id="kCash"></span><span id="kTPM"></span><span id="kOnTime"></span>
+      <span id="ordersPill"></span><div id="ordersList"></div><canvas id="sparkSide"></canvas>
+      <span id="sparkRate"></span><span id="sparkWip"></span><div id="objList"></div><span id="objPill"></span>
+      <span id="rankChip"></span>`);
+  }
+  try{
+    stubDom();
+    window.FLOOR={drawResource(){},refreshColors(){},visual:{}};
+    localStorage.clear();
+    SIM.initWorld(12);
+    ERP.buildInv();
+    const P=(x,y,k,d)=>SIM.place(x,y,k,d,true);
+    P(1,2,'extractor',1); P(2,2,'belt',1); P(3,2,'assembler',1); SIM.setRecipe(3,2,'smelt');
+    P(4,2,'belt',1); P(5,2,'assembler',1); SIM.setRecipe(5,2,'assemble');
+    P(6,2,'belt',1); P(7,2,'shipping',1);
+    for(let i=0;i<260;i++){SIM.step(); ERP.tick(performance.now()+i*500);}
+    ok('simulation advances', SIM.S.produced.ore>0, 'ore='+SIM.S.produced.ore);
+    ok('shipping can occur or line has WIP', SIM.S.shipped>0 || SIM.wip()>0, 'shipped='+SIM.S.shipped+' wip='+SIM.wip());
+    ADVENTURE.init();
+    ok('skirmish deck renders six runs', document.querySelectorAll('#adventurePanel [data-run]').length===6);
+    ADVENTURE.start('hot-order');
+    ok('skirmish starts', !!ADVENTURE.active && ADVENTURE.active.id==='hot-order');
+    SIM.S.shipped+=12; ADVENTURE.tick(performance.now());
+    ok('skirmish win resolves', !ADVENTURE.active && ADVENTURE.wins>=1, 'wins='+ADVENTURE.wins);
+    const exported=RELEASE.collect();
+    ok('export includes core save keys', ['globert_save_v1','globert_levels_v1','globert_adventure_v1','globert_prefs_v1','globert_tutorial_v1'].every(k=>Object.prototype.hasOwnProperty.call(exported.keys,k)));
+  }catch(e){
+    ok('smoke runner exception',false,e.stack||e.message);
+  }
+  const pass=results.every(r=>r.pass);
+  document.getElementById('out').textContent=results.map(r=>(r.pass?'PASS ':'FAIL ')+r.name+(r.detail?' · '+r.detail:'')).join('\n');
+  window.__SMOKE_RESULTS__={pass,results};
+})();
+</script>
+</body>
+</html>

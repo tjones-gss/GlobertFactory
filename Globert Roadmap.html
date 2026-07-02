@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Globert Works — Build Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="icon" href="glogo.svg" type="image/svg+xml">
+<style>
+  :root{
+    --paper:#eef1ec; --panel:#ffffff; --panel-2:#f6f8f5;
+    --ink:#1c2722; --ink-2:#56655c; --ink-3:#8a988f;
+    --line:#e3e9e2; --line-2:#eef2ec;
+    --green:#34a13a; --green-deep:#1f6b27; --green-700:#27812d; --green-soft:#e7f3e7;
+    --mint:#cfe0d2; --gold:#c8975c; --blue:#3a6ea5; --blue-soft:#eaf3fb;
+    --r-sm:8px; --r-md:12px; --r-lg:16px; --r-pill:999px;
+    --shadow:0 1px 2px rgba(28,39,34,.05), 0 12px 32px rgba(28,39,34,.07);
+    --disp:"Space Grotesk", system-ui, sans-serif;
+    --ui:"Inter", system-ui, sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--ui);color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;line-height:1.5;}
+  .doc{max-width:960px;margin:0 auto;padding:0 32px 80px;}
+  .num{font-family:var(--disp);font-variant-numeric:tabular-nums;}
+  .mono{font-family:var(--mono);font-size:12px;}
+  h1,h2,h3,h4{font-family:var(--disp);letter-spacing:-.4px;margin:0;}
+  a{color:var(--green-deep);}
+
+  /* cover */
+  .cover{position:relative;background:var(--green-deep);color:#fff;border-radius:0 0 26px 26px;overflow:hidden;padding:46px 44px 50px;margin-bottom:46px;}
+  .cover::before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px);background-size:24px 24px;}
+  .cover-in{position:relative;max-width:960px;margin:0 auto;}
+  .cover .lockup{display:flex;align-items:center;gap:12px;margin-bottom:30px;}
+  .cover .logo{width:42px;height:42px;border-radius:11px;background:#fff;display:grid;place-items:center;}
+  .cover .logo svg{width:28px;height:28px;}
+  .cover .wm{font-family:var(--disp);font-weight:700;font-size:18px;}
+  .cover .eyebrow{font-size:12px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:var(--mint);margin-bottom:12px;}
+  .cover h1{font-size:46px;line-height:1.02;letter-spacing:-1.6px;max-width:640px;}
+  .cover p{font-size:17px;color:#d4ead6;max-width:560px;margin:18px 0 0;}
+  .cover-mascot{position:absolute;right:34px;bottom:-6px;width:138px;height:138px;}
+  .cover-meta{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap;}
+  .cover-meta div{font-size:12.5px;color:#bcdcbf;}
+  .cover-meta b{display:block;font-family:var(--disp);font-size:18px;color:#fff;font-weight:600;margin-top:3px;}
+
+  .lead{font-size:17px;color:var(--ink-2);max-width:680px;margin:0 0 14px;}
+  .lead b{color:var(--ink);}
+
+  /* section headers */
+  .sec-eyebrow{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--green-deep);margin:0 0 8px;}
+  h2.sec{font-size:28px;margin:0 0 6px;}
+  .sec-block{margin:50px 0 0;}
+  .sec-sub{color:var(--ink-2);font-size:15px;margin:0 0 24px;max-width:680px;}
+
+  /* current-state callout */
+  .now{background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--green);border-radius:var(--r-md);padding:22px 26px;box-shadow:var(--shadow);}
+  .now h3{font-size:17px;margin-bottom:6px;}
+  .now p{margin:0 0 16px;color:var(--ink-2);font-size:14.5px;}
+  .now-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px;}
+  .now-grid div{display:flex;gap:9px;font-size:13.5px;align-items:flex-start;}
+  .now-grid svg{width:16px;height:16px;color:var(--green);flex:none;margin-top:2px;}
+  .now-grid .mono{color:var(--ink-3);}
+
+  /* legend */
+  .legend{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 26px;}
+  .lg{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;padding:6px 13px;border-radius:var(--r-pill);border:1px solid var(--line);background:var(--panel);}
+  .lg .dot{width:9px;height:9px;border-radius:50%;}
+  .dot-done{background:var(--green);} .dot-next{background:var(--gold);} .dot-later{background:var(--ink-3);}
+
+  /* timeline */
+  .phases{position:relative;}
+  .phases::before{content:"";position:absolute;left:23px;top:8px;bottom:30px;width:2px;background:var(--line);}
+  .phase{position:relative;padding-left:66px;margin-bottom:26px;}
+  .phase-node{position:absolute;left:0;top:0;width:48px;height:48px;border-radius:13px;display:grid;place-items:center;font-family:var(--disp);font-weight:700;font-size:20px;background:var(--panel);border:2px solid var(--line);color:var(--ink-3);z-index:1;}
+  .phase.done .phase-node{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 12px rgba(52,161,58,.32);}
+  .phase.next .phase-node{background:#fff;border-color:var(--gold);color:var(--gold);}
+  .phase-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px 24px;box-shadow:var(--shadow);}
+  .phase.next .phase-card{border-color:#e7d4b4;box-shadow:0 0 0 3px #faf3e6, var(--shadow);}
+  .phase-head{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
+  .phase-head h3{font-size:20px;}
+  .phase-status{font-size:10.5px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 11px;border-radius:var(--r-pill);}
+  .st-done{background:var(--green-soft);color:var(--green-deep);}
+  .st-next{background:#f7efdd;color:#9a6c14;}
+  .st-later{background:var(--panel-2);color:var(--ink-3);}
+  .phase-eff{margin-left:auto;font-size:12px;color:var(--ink-3);font-weight:600;}
+  .phase-goal{font-size:14.5px;color:var(--ink-2);margin:2px 0 16px;}
+  .phase-goal b{color:var(--ink);}
+  .cols{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;}
+  .col h5{font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-3);font-weight:700;margin:0 0 10px;}
+  ul.checks{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
+  ul.checks li{display:flex;gap:9px;font-size:13.5px;color:var(--ink);align-items:flex-start;line-height:1.4;}
+  ul.checks li svg{width:15px;height:15px;flex:none;margin-top:2px;color:var(--green);}
+  .phase.done ul.checks li svg{color:var(--green);}
+  .files{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+  .ftag{font-family:var(--mono);font-size:11px;background:var(--panel-2);border:1px solid var(--line);border-radius:6px;padding:3px 8px;color:var(--ink-2);}
+  .ftag.new{background:var(--blue-soft);border-color:#cfe0f0;color:var(--blue);}
+  .dod{background:var(--panel-2);border-radius:var(--r-sm);padding:11px 14px;font-size:13px;color:var(--ink-2);}
+  .dod b{color:var(--ink);font-weight:600;}
+
+  /* milestones */
+  .miles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+  .mile{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);padding:18px;}
+  .mile .v{font-family:var(--disp);font-weight:700;font-size:22px;color:var(--green-deep);}
+  .mile .t{font-size:13px;font-weight:600;margin:4px 0 8px;}
+  .mile .p{font-size:12px;color:var(--ink-3);line-height:1.45;}
+  .mile.cur{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft);}
+
+  /* architecture */
+  .arch{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+  .layer{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;}
+  .layer h4{font-size:14px;margin-bottom:8px;}
+  .layer .mono{display:block;color:var(--green-deep);margin-bottom:6px;}
+  .layer p{font-size:12.5px;color:var(--ink-2);margin:0;line-height:1.5;}
+  table.fm{width:100%;border-collapse:collapse;font-size:13px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;}
+  table.fm th{text-align:left;font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--panel-2);}
+  table.fm td{padding:11px 16px;border-bottom:1px solid var(--line-2);vertical-align:top;}
+  table.fm tr:last-child td{border-bottom:none;}
+  table.fm td:first-child{white-space:nowrap;}
+
+  .foot{margin-top:54px;padding-top:22px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-3);line-height:1.6;}
+  .foot b{color:var(--ink-2);}
+
+  @media print{
+    body{background:#fff;}
+    .cover{border-radius:0;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .phase-card,.now,.mile,.layer,table.fm{box-shadow:none;}
+    .phase{break-inside:avoid;}
+    .sec-block{break-inside:avoid;}
+  }
+  @media(max-width:760px){
+    .cols,.now-grid,.arch{grid-template-columns:1fr;}
+    .miles{grid-template-columns:1fr 1fr;}
+    .cover h1{font-size:34px;}
+    .cover-mascot{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Cover ===== -->
+<div class="cover">
+  <div class="cover-in">
+    <div class="lockup">
+      <span class="logo"><svg viewBox="3.55 83.69 36.04 36.04" xmlns="http://www.w3.org/2000/svg"><path fill="#34a13a" d="M26.72,106.6H21.64v-5.31H36.9l0,15.94-4.95,0,0-6a14,14,0,0,1-11.19,6h-.29A14.15,14.15,0,0,1,6.84,106.77c0-.1-.07-.19-.09-.29h0s0,0,0,0A13.84,13.84,0,0,1,6.42,105h0a8.23,8.23,0,0,1-.16-1.31,7.84,7.84,0,0,1,0-1.37c0-.07,0-.14,0-.2,0-.39,0-.77.1-1.16a13.88,13.88,0,0,1,.23-1.46,15.56,15.56,0,0,1,7.59-11.3,12.74,12.74,0,0,1,7.3-2c.57,0,1.14.06,1.71.13A16.05,16.05,0,0,1,36.38,98l-7.55,0a.3.3,0,0,1,0-.08c-2-5.06-4.06-5.57-5.37-6.33-4.5-2-9.81-.54-13.27,3.07h0a12.78,12.78,0,0,0-3.52,7.7s0,.08,0,.12a.56.56,0,0,1,0-.12,11.41,11.41,0,0,1,9.84-8.38,9.77,9.77,0,0,0-1,.63,7.35,7.35,0,0,0-3,3.54,8.62,8.62,0,0,0-.79,3.6,8.84,8.84,0,0,0,6.46,8.43,7.91,7.91,0,0,0,1.07.25,4.87,4.87,0,0,0,.55.06,9.1,9.1,0,0,0,.91,0,9,9,0,0,0,6.82-3.08,7.08,7.08,0,0,0,.66-.79Z"/></svg></span>
+      <span class="wm">Globert Works</span>
+    </div>
+    <div class="eyebrow">Product Roadmap · v2026.1</div>
+    <h1>From playable prototype to a shipped game.</h1>
+    <p>The end-to-end workflow that takes Globert Works from today's working core loop to a polished, content-complete game you can launch.</p>
+    <div class="cover-meta">
+      <div>Status<b>Phase 0 shipped</b></div>
+      <div>Next up<b>Onboarding</b></div>
+      <div>Phases<b>8 total</b></div>
+      <div>Target<b>v1.0 launch</b></div>
+    </div>
+  </div>
+  <div class="cover-mascot" id="coverMascot"></div>
+</div>
+
+<div class="doc">
+
+  <p class="lead">Globert Works already runs: a real factory simulation, an ERP work-order economy, a career ladder, and a start screen. This roadmap is the <b>build order</b> — eight phases, each with what to build, which files to touch, and a clear definition of done. Work them top to bottom; everything compounds.</p>
+
+  <!-- ===== Where we are ===== -->
+  <div class="sec-block">
+    <div class="now">
+      <h3>✅ Where we are today — the foundation is live</h3>
+      <p>This is the prototype you're looking at. Treat it as a finished Phase 0: the systems below are real and wired together, not mockups.</p>
+      <div class="now-grid">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span>Tile-based factory sim — belts, recipes, producers <span class="mono">sim.js</span></span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span>Low-poly canvas renderer + input <span class="mono">floor.js</span></span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span>ERP layer: work orders, KPIs, office <span class="mono">erp.js</span></span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span>Career loop: chapters → bonus → promotion <span class="mono">levels.js</span></span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span>Start screen + live preview + settings <span class="mono">Globert.html</span></span></div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg><span>Save/load, tweaks, mascot &amp; brand <span class="mono">main.js</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Roadmap ===== -->
+  <div class="sec-block">
+    <p class="sec-eyebrow">The build order</p>
+    <h2 class="sec">Eight phases to v1.0</h2>
+    <p class="sec-sub">Each phase is independently shippable — you'll always have a playable build. Effort tags are rough planning sizes, not commitments.</p>
+
+    <div class="legend">
+      <span class="lg"><span class="dot dot-done"></span>Shipped</span>
+      <span class="lg"><span class="dot dot-next"></span>Build next</span>
+      <span class="lg"><span class="dot dot-later"></span>Later</span>
+    </div>
+
+    <div class="phases">
+
+      <!-- Phase 0 -->
+      <div class="phase done">
+        <div class="phase-node">0</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>Foundation</h3>
+            <span class="phase-status st-done">Shipped</span>
+            <span class="phase-eff">Done</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> a playable core loop with real, connected systems.</p>
+          <div class="files">
+            <span class="ftag">sim.js</span><span class="ftag">floor.js</span><span class="ftag">erp.js</span>
+            <span class="ftag">levels.js</span><span class="ftag">chapters.js</span><span class="ftag">main.js</span><span class="ftag">Globert.html</span>
+          </div>
+          <div class="dod"><b>Definition of done:</b> you can place machines, ship a Widget, fill an order, and earn a promotion. ✔ Achieved.</div>
+        </div>
+      </div>
+
+      <!-- Phase 1 -->
+      <div class="phase next">
+        <div class="phase-node">1</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>First-run &amp; onboarding</h3>
+            <span class="phase-status st-next">Build next</span>
+            <span class="phase-eff">~1–2 wks</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> a brand-new player ships their first Widget in under 3 minutes, unprompted.</p>
+          <div class="cols">
+            <div class="col">
+              <h5>What you'll build</h5>
+              <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Guided tutorial: place extractor → belt → assembler → dock, step by step</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Contextual tooltips &amp; ghost hints on the floor</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Clean "New game vs Continue" gate from the start screen</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Autosave indicator + manual save; recover from a bad save</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h5>Files to touch</h5>
+              <div class="files">
+                <span class="ftag new">tutorial.js</span><span class="ftag">main.js</span><span class="ftag">erp.js</span><span class="ftag">glob.css</span>
+              </div>
+              <h5>Definition of done</h5>
+              <div class="dod">90% of first-time testers ship a Widget without asking how.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="phase later">
+        <div class="phase-node">2</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>Progression depth &amp; upgrades</h3>
+            <span class="phase-status st-later">Later</span>
+            <span class="phase-eff">~2–3 wks</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> give players reasons to keep building and re-optimizing.</p>
+          <div class="cols">
+            <div class="col">
+              <h5>What you'll build</h5>
+              <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Machine tiers (faster extractor, double-output assembler, long belts)</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>A second product line + deeper recipe tree</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>An upgrade / research panel, gated by cash &amp; chapter</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Storage &amp; throughput upgrades that change optimal layouts</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h5>Files to touch</h5>
+              <div class="files">
+                <span class="ftag">sim.js</span><span class="ftag">erp.js</span><span class="ftag">levels.js</span><span class="ftag new">upgrades.js</span>
+              </div>
+              <h5>Definition of done</h5>
+              <div class="dod">5+ meaningful upgrades, each one shifts the best layout.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="phase later">
+        <div class="phase-node">3</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>Economy &amp; challenge balance</h3>
+            <span class="phase-status st-later">Later</span>
+            <span class="phase-eff">~2 wks</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> real tension — a difficulty curve that rewards efficiency.</p>
+          <div class="cols">
+            <div class="col">
+              <h5>What you'll build</h5>
+              <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Dynamic order demand, pricing &amp; rush-order bonuses</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Deadline penalties + on-time streak rewards</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Cash sinks, fail/recovery states, difficulty settings</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Tuned Career vs unlimited Sandbox balance</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h5>Files to touch</h5>
+              <div class="files">
+                <span class="ftag">erp.js</span><span class="ftag">sim.js</span><span class="ftag">levels.js</span>
+              </div>
+              <h5>Definition of done</h5>
+              <div class="dod">Each chapter is beatable but pressures the player to optimize.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="phase later">
+        <div class="phase-node">4</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>Content: full chapters &amp; narrative</h3>
+            <span class="phase-status st-later">Later</span>
+            <span class="phase-eff">~3 wks</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> the five chapters feel like a campaign, not a checklist.</p>
+          <div class="cols">
+            <div class="col">
+              <h5>What you'll build</h5>
+              <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Per-chapter starting maps, deposits &amp; constraints</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Globert mascot intros, dialogue &amp; chapter outro cards</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Optional star objectives for replay</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>An end-of-career finale (VP of Operations)</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h5>Files to touch</h5>
+              <div class="files">
+                <span class="ftag">chapters.js</span><span class="ftag">levels.js</span><span class="ftag">mascot.js</span><span class="ftag new">dialogue.js</span>
+              </div>
+              <h5>Definition of done</h5>
+              <div class="dod">Every chapter has a setup, a twist, and a payoff.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 5 -->
+      <div class="phase later">
+        <div class="phase-node">5</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>Feel &amp; polish (juice)</h3>
+            <span class="phase-status st-later">Later</span>
+            <span class="phase-eff">~2–3 wks</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> every action feels good — sound, motion, responsiveness.</p>
+          <div class="cols">
+            <div class="col">
+              <h5>What you'll build</h5>
+              <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>SFX (place, ship, cash, promote) + ambient music</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Particle FX, machine feedback, refined transitions</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Full responsive + touch controls for tablet</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Reduced-motion, color &amp; contrast accessibility pass</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h5>Files to touch</h5>
+              <div class="files">
+                <span class="ftag">floor.js</span><span class="ftag new">audio.js</span><span class="ftag">glob.css</span><span class="ftag">home.css</span>
+              </div>
+              <h5>Definition of done</h5>
+              <div class="dod">Passes a "would a stranger smile" play test; works on touch.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 6 -->
+      <div class="phase later">
+        <div class="phase-node">6</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>Meta, retention &amp; data</h3>
+            <span class="phase-status st-later">Later</span>
+            <span class="phase-eff">~2 wks</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> reasons to return, plus insight into how people play.</p>
+          <div class="cols">
+            <div class="col">
+              <h5>What you'll build</h5>
+              <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Achievements + daily/weekly seeded challenge</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Local (and optional cloud) leaderboards</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Run history + expanded best-run record</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Share-a-factory export/import code; opt-in analytics</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h5>Files to touch</h5>
+              <div class="files">
+                <span class="ftag">levels.js</span><span class="ftag">home.js</span><span class="ftag new">meta.js</span>
+              </div>
+              <h5>Definition of done</h5>
+              <div class="dod">Achievements list, a shareable save code, opt-in metrics live.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 7 -->
+      <div class="phase later">
+        <div class="phase-node">7</div>
+        <div class="phase-card">
+          <div class="phase-head">
+            <h3>Ship &amp; live ops</h3>
+            <span class="phase-status st-later">Later</span>
+            <span class="phase-eff">~2 wks</span>
+          </div>
+          <p class="phase-goal"><b>Goal:</b> a stable public launch you can keep patching.</p>
+          <div class="cols">
+            <div class="col">
+              <h5>What you'll build</h5>
+              <ul class="checks">
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Performance pass: render culling, large-grid frame budget</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Cross-browser / device QA matrix + bug bash</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Versioned saves + migration; error logging</li>
+                <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg>Hosting/CDN deploy + SEO/OG on the landing page</li>
+              </ul>
+            </div>
+            <div class="col">
+              <h5>Files to touch</h5>
+              <div class="files">
+                <span class="ftag">all</span><span class="ftag new">deploy config</span>
+              </div>
+              <h5>Definition of done</h5>
+              <div class="dod">Green QA matrix, &lt;16ms frame on target devices, live URL.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== Milestones ===== -->
+  <div class="sec-block">
+    <p class="sec-eyebrow">Sequencing</p>
+    <h2 class="sec">Release milestones</h2>
+    <p class="sec-sub">Group the phases into shippable versions so there's always something to play and test.</p>
+    <div class="miles">
+      <div class="mile cur">
+        <div class="v">v0.1</div>
+        <div class="t">Playable core</div>
+        <div class="p">Phase 0. The prototype today — full loop, career, start screen.</div>
+      </div>
+      <div class="mile">
+        <div class="v">v0.5</div>
+        <div class="t">Real game</div>
+        <div class="p">Phases 1–3. Onboarding, upgrades, a tuned economy.</div>
+      </div>
+      <div class="mile">
+        <div class="v">v0.9</div>
+        <div class="t">Content beta</div>
+        <div class="p">Phases 4–5. Full campaign, sound, polish, touch.</div>
+      </div>
+      <div class="mile">
+        <div class="v">v1.0</div>
+        <div class="t">Launch</div>
+        <div class="p">Phases 6–7. Meta, leaderboards, QA, deploy.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Architecture ===== -->
+  <div class="sec-block">
+    <p class="sec-eyebrow">Build on this</p>
+    <h2 class="sec">How the codebase is laid out</h2>
+    <p class="sec-sub">Three clean layers. New features almost always slot into one of them — keep the simulation, the data/UI, and the rendering separate.</p>
+    <div class="arch">
+      <div class="layer">
+        <h4>1 · Simulation</h4>
+        <span class="mono">sim.js</span>
+        <p>The headless engine: tile grid, belt flow, recipes, producers, save format. No DOM. This is the source of truth — extend recipes, machines and economy here.</p>
+      </div>
+      <div class="layer">
+        <h4>2 · Data &amp; UI</h4>
+        <span class="mono">erp.js · levels.js</span>
+        <p>Work orders, KPIs, office dashboard, career progression, the promotion overlay. Reads the sim, renders HTML panels, owns progression rules.</p>
+      </div>
+      <div class="layer">
+        <h4>3 · Render &amp; shell</h4>
+        <span class="mono">floor.js · main.js · home.js</span>
+        <p>Canvas renderer + input, the game loop, the start screen. Phase 5's juice (FX, audio) plugs in here without touching the sim.</p>
+      </div>
+    </div>
+
+    <table class="fm">
+      <thead><tr><th>File</th><th>Owns</th><th>You'll extend it in</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">sim.js</td><td>Grid, belts, recipes, producers, save/load</td><td>Phases 2, 3</td></tr>
+        <tr><td class="mono">floor.js</td><td>Canvas rendering &amp; pointer input</td><td>Phase 5</td></tr>
+        <tr><td class="mono">erp.js</td><td>Orders, inventory, KPIs, office dashboard</td><td>Phases 1, 3</td></tr>
+        <tr><td class="mono">levels.js</td><td>Career loop, rewards, promotion overlay</td><td>Phases 2, 4, 6</td></tr>
+        <tr><td class="mono">chapters.js</td><td>Chapter data (goals, ranks, rewards)</td><td>Phase 4</td></tr>
+        <tr><td class="mono">main.js</td><td>Boot, game loop, save, tweak wiring</td><td>Phase 1</td></tr>
+        <tr><td class="mono">home.js / Globert.html</td><td>Start screen, preview, settings</td><td>Phases 1, 6</td></tr>
+        <tr><td class="mono">mascot.js / glogo.svg</td><td>Brand mark &amp; mascot</td><td>Phase 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="foot">
+    <b>Globert Works — Build Roadmap.</b> A planning document for turning the prototype into a shipped game.<br>
+    A loving parody &amp; tribute. The "G" mark is used here for a fan project and is not an official Global Shop Solutions asset; swap in licensed branding before any public release.
+  </div>
+
+</div>
+
+<script src="mascot.js"></script>
+<script>document.getElementById('coverMascot').innerHTML = globertMascot({size:138});</script>
+</body>
+</html>

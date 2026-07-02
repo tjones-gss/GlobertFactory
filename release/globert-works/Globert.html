@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Globert Works — We gamify your manufacturing.™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="home.css?v=2">
+<link rel="icon" href="glogo.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- ===== Nav ===== -->
+<nav class="nav">
+  <div class="nav-in">
+    <a class="brand" href="Globert.html" data-screen-label="Home">
+      <span class="logo">
+        <svg viewBox="3.55 83.69 36.04 36.04" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#fff" d="M26.72,106.6H21.64v-5.31H36.9l0,15.94-4.95,0,0-6a14,14,0,0,1-11.19,6h-.29A14.15,14.15,0,0,1,6.84,106.77c0-.1-.07-.19-.09-.29h0s0,0,0,0A13.84,13.84,0,0,1,6.42,105h0a8.23,8.23,0,0,1-.16-1.31,7.84,7.84,0,0,1,0-1.37c0-.07,0-.14,0-.2,0-.39,0-.77.1-1.16a13.88,13.88,0,0,1,.23-1.46,15.56,15.56,0,0,1,7.59-11.3,12.74,12.74,0,0,1,7.3-2c.57,0,1.14.06,1.71.13A16.05,16.05,0,0,1,36.38,98l-7.55,0a.3.3,0,0,1,0-.08c-2-5.06-4.06-5.57-5.37-6.33-4.5-2-9.81-.54-13.27,3.07h0a12.78,12.78,0,0,0-3.52,7.7s0,.08,0,.12a.56.56,0,0,1,0-.12,11.41,11.41,0,0,1,9.84-8.38,9.77,9.77,0,0,0-1,.63,7.35,7.35,0,0,0-3,3.54,8.62,8.62,0,0,0-.79,3.6,8.84,8.84,0,0,0,6.46,8.43,7.91,7.91,0,0,0,1.07.25,4.87,4.87,0,0,0,.55.06,9.1,9.1,0,0,0,.91,0,9,9,0,0,0,6.82-3.08,7.08,7.08,0,0,0,.66-.79Z"/>
+        </svg>
+      </span>
+      <span class="name">Globert <b>Works</b></span>
+    </a>
+    <div class="nav-links">
+      <a href="#how">How it works</a>
+      <a href="#career">Career</a>
+      <a href="#modules">Modules</a>
+      <a href="#settings">Settings</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-md" id="navPlay" href="Globert Factory.html">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Open the floor
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== Hero ===== -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="tagpill"><span class="dot"></span>We gamify your manufacturing.™</span>
+      <h1>Run the floor. Ship a quality Widget <span class="hl">on time, every time.</span></h1>
+      <p class="lede">Globert Works is the shop-floor ERP you actually <b>play</b>. Mine ore, route conveyors, run your machines, and clear work orders from quote to cash — then climb the ladder from trainee to plant manager.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" id="heroPlay" href="Globert Factory.html">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <span id="heroPlayLabel">Start your shift</span>
+        </a>
+        <a class="btn-link" href="#how">
+          See how the line runs
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M5 12h14m-6-6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="hero-trust" id="heroTrust"></div>
+    </div>
+
+    <div class="hero-art">
+      <div class="preview-frame">
+        <div class="preview-bar">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="ptitle">Globert Works · Shop Floor</span>
+          <span class="plive"><span class="lv"></span>Live</span>
+        </div>
+        <div class="preview-stage">
+          <canvas id="previewCanvas"></canvas>
+          <div class="preview-chip"><span class="num" id="pvRate">0</span>&nbsp;widgets / min · <span class="num" id="pvShip">0</span>&nbsp;shipped</div>
+        </div>
+      </div>
+      <div class="hero-mascot" id="heroMascot"></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== How it works ===== -->
+<section class="section alt" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">From ore to cash</span>
+      <h2>One unified shop floor, five honest steps</h2>
+      <p>No spreadsheets, no third-party tools. Lay down machines, connect them with conveyors, and let the Widgets flow.</p>
+    </div>
+    <div class="loop" id="loop"></div>
+  </div>
+</section>
+
+<!-- ===== Career roadmap ===== -->
+<section class="section" id="career">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">The career ladder</span>
+      <h2>Eight chapters. One promotion at a time.</h2>
+      <p>Every chapter sets fresh targets on the same growing floor. Hit them all to earn a performance bonus and your next title.</p>
+    </div>
+    <div class="chapters" id="chapterGrid"></div>
+  </div>
+</section>
+
+<!-- ===== Stats / best run ===== -->
+<section class="section alt" id="record">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Your shift record</span>
+      <h2>The numbers don't lie</h2>
+      <p>Pulled live from your save. Beat your own best run.</p>
+    </div>
+    <div id="statsBlock"></div>
+  </div>
+</section>
+
+<!-- ===== Modules ===== -->
+<section class="section" id="modules">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">25+ modules, minus 21</span>
+      <h2>Everything a Widget shop needs</h2>
+      <p>The serious-sounding feature list — except every one of these is a thing you'll actually do on the floor.</p>
+    </div>
+    <div class="modules">
+      <div class="mod">
+        <div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 5-7"/></svg></div>
+        <h4>Real-time throughput analytics</h4>
+        <p>Watch widgets-per-minute tick up live as your line warms up. The spark chart never stops moving.</p>
+      </div>
+      <div class="mod">
+        <div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></div>
+        <h4>End-to-end work orders</h4>
+        <p>Customers place orders with real deadlines. Fill them before the timer runs out to keep your on-time streak alive.</p>
+      </div>
+      <div class="mod">
+        <div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <h4>One unified shop floor</h4>
+        <p>Extract, smelt, press, assemble and ship — all on a single grid. Drag a conveyor and route it anywhere.</p>
+      </div>
+      <div class="mod">
+        <div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <h4>Quote-to-cash flow</h4>
+        <p>Every Widget that hits the dock pays out instantly. Reinvest the cash in more machines and scale the line.</p>
+      </div>
+      <div class="mod">
+        <div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h4>The operations dashboard</h4>
+        <p>Flip to the Office view for KPIs, the work-order queue, machine utilization and a full bill of materials.</p>
+      </div>
+      <div class="mod">
+        <div class="mod-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></div>
+        <h4>Built for the career</h4>
+        <p>Climb from Shop-Floor Trainee to VP of Operations. Each promotion comes with a bonus and bragging rights.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Settings ===== -->
+<section class="section alt" id="settings">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Set it before you clock in</span>
+      <h2>Tune your shift</h2>
+      <p>Pick your defaults here — the floor picks them up the moment you open it.</p>
+    </div>
+    <div class="settings-card" id="settingsCard"></div>
+  </div>
+</section>
+
+<!-- ===== Final CTA ===== -->
+<section class="section" id="clockin">
+  <div class="wrap">
+    <div class="cta-band">
+      <h2>Ready to clock in?</h2>
+      <p>The conveyors are waiting. Ship your first Widget in under a minute.</p>
+      <a class="btn btn-primary btn-lg" id="ctaPlay" href="Globert Factory.html">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <span id="ctaPlayLabel">Start your shift</span>
+      </a>
+      <div class="cta-mascot" id="ctaMascot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="foot-brand">
+        <a class="brand" href="Globert.html">
+          <span class="logo"><svg viewBox="3.55 83.69 36.04 36.04" fill="none"><path fill="#fff" d="M26.72,106.6H21.64v-5.31H36.9l0,15.94-4.95,0,0-6a14,14,0,0,1-11.19,6h-.29A14.15,14.15,0,0,1,6.84,106.77c0-.1-.07-.19-.09-.29h0s0,0,0,0A13.84,13.84,0,0,1,6.42,105h0a8.23,8.23,0,0,1-.16-1.31,7.84,7.84,0,0,1,0-1.37c0-.07,0-.14,0-.2,0-.39,0-.77.1-1.16a13.88,13.88,0,0,1,.23-1.46,15.56,15.56,0,0,1,7.59-11.3,12.74,12.74,0,0,1,7.3-2c.57,0,1.14.06,1.71.13A16.05,16.05,0,0,1,36.38,98l-7.55,0a.3.3,0,0,1,0-.08c-2-5.06-4.06-5.57-5.37-6.33-4.5-2-9.81-.54-13.27,3.07h0a12.78,12.78,0,0,0-3.52,7.7s0,.08,0,.12a.56.56,0,0,1,0-.12,11.41,11.41,0,0,1,9.84-8.38,9.77,9.77,0,0,0-1,.63,7.35,7.35,0,0,0-3,3.54,8.62,8.62,0,0,0-.79,3.6,8.84,8.84,0,0,0,6.46,8.43,7.91,7.91,0,0,0,1.07.25,4.87,4.87,0,0,0,.55.06,9.1,9.1,0,0,0,.91,0,9,9,0,0,0,6.82-3.08,7.08,7.08,0,0,0,.66-.79Z"/></svg></span>
+          <span class="name">Globert <b>Works</b></span>
+        </a>
+        <p>The shop-floor ERP you play. Built on the floor, for the floor.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Play</h5>
+          <a href="Globert Factory.html">Open the floor</a>
+          <a href="#career">Career ladder</a>
+          <a href="#record">Your record</a>
+        </div>
+        <div class="foot-col">
+          <h5>The shop</h5>
+          <a href="#how">How it works</a>
+          <a href="#modules">Modules</a>
+          <a href="#settings">Settings</a>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#">About the floor</a>
+          <a href="#">The Woodlands HQ</a>
+          <a href="#">Get a demo</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-legal">
+      <b>Globert Works</b> · We gamify your manufacturing.™ &nbsp;·&nbsp; © 2026 · made on the floor.<br>
+      A loving parody &amp; tribute. Not affiliated with, endorsed by, or representative of any real ERP vendor. All "modules" are games.
+    </div>
+  </div>
+</footer>
+
+<!-- engine (preview reuses the real renderer) -->
+<script src="sim.js?v=2"></script>
+<script src="floor.js?v=2"></script>
+<script src="chapters.js?v=2"></script>
+<script src="mascot.js?v=2"></script>
+<script src="home.js?v=2"></script>
+</body>
+</html>

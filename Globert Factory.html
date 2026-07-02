@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Globert — Factory ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="glob.css?v=2">
+<link rel="icon" href="glogo.svg" type="image/svg+xml">
+</head>
+<body>
+<div id="app">
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <a class="brand" href="Globert.html" style="text-decoration:none;color:inherit;">
+      <span class="logo">
+        <svg viewBox="3.55 83.69 36.04 36.04" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#fff" d="M26.72,106.6H21.64v-5.31H36.9l0,15.94-4.95,0,0-6a14,14,0,0,1-11.19,6h-.29A14.15,14.15,0,0,1,6.84,106.77c0-.1-.07-.19-.09-.29h0s0,0,0,0A13.84,13.84,0,0,1,6.42,105h0a8.23,8.23,0,0,1-.16-1.31,7.84,7.84,0,0,1,0-1.37c0-.07,0-.14,0-.2,0-.39,0-.77.1-1.16a13.88,13.88,0,0,1,.23-1.46,15.56,15.56,0,0,1,7.59-11.3,12.74,12.74,0,0,1,7.3-2c.57,0,1.14.06,1.71.13A16.05,16.05,0,0,1,36.38,98l-7.55,0a.3.3,0,0,1,0-.08c-2-5.06-4.06-5.57-5.37-6.33-4.5-2-9.81-.54-13.27,3.07h0a12.78,12.78,0,0,0-3.52,7.7s0,.08,0,.12a.56.56,0,0,1,0-.12,11.41,11.41,0,0,1,9.84-8.38,9.77,9.77,0,0,0-1,.63,7.35,7.35,0,0,0-3,3.54,8.62,8.62,0,0,0-.79,3.6,8.84,8.84,0,0,0,6.46,8.43,7.91,7.91,0,0,0,1.07.25,4.87,4.87,0,0,0,.55.06,9.1,9.1,0,0,0,.91,0,9,9,0,0,0,6.82-3.08,7.08,7.08,0,0,0,.66-.79Z"/>
+        </svg>
+      </span>
+      <div>
+        <div class="name">Globert <b>Works</b></div>
+        <div class="tag">Shop-floor ERP · build · flow · ship</div>
+      </div>
+    </a>
+
+    <a class="menu-btn" href="Globert.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h13M3 6h18M3 18h18"/><path d="M20 12l-4-4m4 4l-4 4"/></svg>
+      Menu
+    </a>
+
+    <div class="viewtoggle" id="viewToggle">
+      <button data-view="floor" class="active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Shop Floor
+      </button>
+      <button data-view="office">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="12" width="3" height="6"/><rect x="12" y="8" width="3" height="10"/><rect x="17" y="5" width="3" height="13"/></svg>
+        Office
+      </button>
+    </div>
+
+    <div class="rankchip" style="margin-left:auto;">
+      <span class="rk-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 19.3 7.2 21.7l.9-5.4L4.2 12.5l5.4-.8z"/></svg></span>
+      <span class="rk-txt"><span class="rk-lbl">Rank</span><span class="rk-val" id="rankChip">New Hire</span></span>
+    </div>
+
+    <div class="kpibar">
+      <div class="kpi"><span class="lbl">Cash</span><span class="val cash num" id="kCash">$1,200</span></div>
+      <div class="kpi"><span class="lbl">Throughput</span><span class="val num" id="kTPM">0<small> /min</small></span></div>
+      <div class="kpi"><span class="lbl">On-time</span><span class="val num" id="kOnTime">100<small>%</small></span></div>
+    </div>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <div class="main">
+
+    <!-- Tool rail -->
+    <nav class="toolrail" id="toolrail">
+      <button class="tool active" data-tool="select"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l7 16 2-7 7-2z"/></svg><span class="key">V</span><span class="tool-tip"><b>Select</b> · inspect / rotate (V)</span></button>
+      <div class="tool-sep"></div>
+      <button class="tool" data-tool="extractor"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4.6v9.2L12 22l-8-5.2V6.6z"/><circle cx="12" cy="11.5" r="3"/></svg><span class="key">E</span><span class="tool-tip"><b>Extractor</b> · mines ore (E) — place on a deposit</span></button>
+      <button class="tool" data-tool="belt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="8" width="20" height="8" rx="2"/><path d="M9 12h6m0 0l-2-2m2 2l-2 2"/></svg><span class="key">B</span><span class="tool-tip"><b>Conveyor</b> · click-drag to route (B)</span></button>
+      <button class="tool" data-tool="assembler"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v3m0 12v3m9-9h-3M6 12H3m13.4-6.4l-2.1 2.1m-4.6 4.6l-2.1 2.1m11.4 0l-2.1-2.1M9.7 9.7L7.6 7.6"/></svg><span class="key">A</span><span class="tool-tip"><b>Assembler</b> · runs a recipe (A) — click to pick</span></button>
+      <button class="tool" data-tool="storage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v11h14V9M9 13h6"/></svg><span class="key">S</span><span class="tool-tip"><b>Storage</b> · buffers items (S)</span></button>
+      <button class="tool" data-tool="shipping"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h11v9H2zM13 9h4l3 3v3h-7z"/><circle cx="6" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg><span class="key">D</span><span class="tool-tip"><b>Shipping dock</b> · ships widgets for cash (D)</span></button>
+      <div class="tool-sep"></div>
+      <button class="tool" data-tool="delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M9 7V4h6v3m-8 0l1 13h8l1-13"/></svg><span class="key">X</span><span class="tool-tip"><b>Demolish</b> · remove (X) · or right-click</span></button>
+      <div style="margin-top:auto;"></div>
+      <button class="tool" id="btnDemo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M19 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg><span class="tool-tip"><b>Demo line</b> · rebuild the starter factory</span></button>
+      <button class="tool" id="btnClear"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg><span class="tool-tip"><b>Clear floor</b> · keep deposits</span></button>
+    </nav>
+
+    <!-- Shop floor -->
+    <section class="stage" id="stage">
+      <canvas id="floor"></canvas>
+      <div class="timehud" id="timehud">
+        <button data-spd="0" title="Pause (Space)"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg></button>
+        <button data-spd="1" class="active">1&times;</button>
+        <button data-spd="2">2&times;</button>
+        <button data-spd="4">4&times;</button>
+      </div>
+      <div class="toast-wrap" id="toasts"></div>
+      <div class="hintbar">
+        <span><span class="sel" id="curTool">Select</span> tool</span>
+        <span><kbd>R</kbd> rotate</span>
+        <span><kbd>B</kbd> belt &amp; drag</span>
+        <span>right-click <kbd>X</kbd> remove</span>
+      </div>
+    </section>
+
+    <!-- ERP sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="side-sec">
+        <div class="side-head"><span class="eb">Career</span><span class="pill" id="objPill">Ch 1</span></div>
+        <div id="objList"></div>
+      </div>
+      <div class="side-sec">
+        <div class="side-head"><span class="eb">Shift Skirmish</span><span class="pill">Live</span></div>
+        <div id="adventurePanel"></div>
+      </div>
+      <div class="side-sec scroll" style="flex:1;">
+        <div class="side-head"><span class="eb">Work Orders</span><span class="pill" id="ordersPill">0 open</span></div>
+        <div id="ordersList"></div>
+      </div>
+      <div class="side-sec">
+        <div class="side-head"><span class="eb">Inventory · on floor</span></div>
+        <div id="invList"></div>
+      </div>
+      <div class="side-sec">
+        <div class="side-head"><span class="eb">Throughput</span></div>
+        <div class="spark-wrap"><canvas id="sparkSide"></canvas></div>
+        <div class="spark-foot"><span id="sparkRate">0 widgets/min</span><span id="sparkWip">0 WIP</span></div>
+      </div>
+    </aside>
+
+    <!-- Office dashboard -->
+    <section class="office" id="office">
+      <div class="office-head">
+        <h1>Operations Dashboard</h1>
+        <span class="sub">Live shop-floor performance</span>
+      </div>
+      <div class="office-grid">
+        <div class="card span3"><h3>Cash on hand</h3><div class="big num" id="oCash">$1,200</div><div class="delta up" id="oCashD">▲ +$0 / min</div></div>
+        <div class="card span3"><h3>Throughput</h3><div class="big num" id="oTPM">0</div><div class="delta up" id="oTPMD">widgets / min</div></div>
+        <div class="card span3"><h3>On-time delivery</h3><div class="big num" id="oOnTime">100%</div><div class="delta up" id="oOnTimeD">0 orders shipped</div></div>
+        <div class="card span3"><h3>Work in progress</h3><div class="big num" id="oWip">0</div><div class="delta up" id="oWipD">building up</div></div>
+
+        <div class="card span8"><h3>Widgets shipped / min</h3><canvas id="chartBig"></canvas></div>
+        <div class="card span4"><h3>Inventory on floor</h3><div id="invBars" style="margin-top:14px;"></div></div>
+
+        <div class="card span8"><h3>Work order queue</h3>
+          <table class="wotable" style="margin-top:12px;">
+            <thead><tr><th>Order</th><th>Customer</th><th>Fulfilled</th><th>Status</th><th>Value / ETA</th></tr></thead>
+            <tbody id="woBody"></tbody>
+          </table>
+        </div>
+        <div class="card span4"><h3>Resource utilization</h3><div id="utilList" style="margin-top:10px;"></div></div>
+
+        <div class="card span4"><h3>Shift Skirmish</h3><div id="adventureOffice" style="margin-top:10px;"></div></div>
+        <div class="card span4"><h3>Release controls</h3>
+          <div class="release-tools">
+            <button id="saveExport">Export save</button>
+            <button id="saveImport">Import save</button>
+            <button id="tutorialReset">Replay training</button>
+            <button id="saveRestart" class="danger">Restart run</button>
+            <input id="saveFile" type="file" accept="application/json" hidden>
+          </div>
+        </div>
+        <div class="card span12"><h3>Bill of materials — Widget</h3><div id="bomCards" style="margin-top:8px;"></div></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<div id="tweaks-root"></div>
+
+<!-- engine (vanilla) -->
+<script src="sim.js?v=2"></script>
+<script src="floor.js?v=2"></script>
+<script src="erp.js?v=2"></script>
+<script src="chapters.js?v=2"></script>
+<script src="mascot.js?v=2"></script>
+<script src="levels.js?v=2"></script>
+<script src="adventure.js?v=5"></script>
+<script src="tutorial.js?v=1"></script>
+<script src="release.js?v=1"></script>
+<script src="main.js?v=3"></script>
+
+<!-- tweaks island (React) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="compiled/tweaks-panel.js?v=2"></script>
+<script src="compiled/tweaks-app.js?v=2"></script>
+</body>
+</html>

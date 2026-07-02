@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Globert Balance Checks</title>
+<link rel="icon" href="../glogo.svg" type="image/svg+xml">
+</head>
+<body>
+<pre id="out">Running...</pre>
+<script src="../sim.js?v=2"></script>
+<script src="../floor.js?v=2"></script>
+<script src="../erp.js?v=2"></script>
+<script src="../chapters.js?v=2"></script>
+<script src="../levels.js?v=2"></script>
+<script src="../adventure.js?v=6"></script>
+<script>
+(function(){
+  const results=[];
+  const originalThroughput=SIM.throughput;
+  const originalWip=SIM.wip;
+  function ok(name,pass,detail){results.push({name,pass,detail:detail||''});}
+  function stubDom(){
+    document.body.insertAdjacentHTML('beforeend',`
+      <div id="toasts"></div><div id="adventurePanel"></div><div id="adventureOffice"></div>
+      <div id="invList"></div><span id="kCash"></span><span id="kTPM"></span><span id="kOnTime"></span>
+      <span id="ordersPill"></span><div id="ordersList"></div><canvas id="sparkSide"></canvas>
+      <span id="sparkRate"></span><span id="sparkWip"></span><div id="objList"></div><span id="objPill"></span>
+      <span id="rankChip"></span>`);
+  }
+  function resetWorld(){
+    localStorage.clear();
+    SIM.initWorld(12);
+    ERP.buildInv();
+    ERP.orders.length=0;
+    ERP.onTime=0;
+    ERP.maxActive=0;
+    SIM.S.cash=0;
+    SIM.S.shipped=0;
+    SIM.throughput=originalThroughput;
+    SIM.wip=originalWip;
+    ADVENTURE.init();
+  }
+  function forceWin(run){
+    if(run.id==='throughput-trial'){
+      SIM.throughput=()=>run.target;
+    }else if(run.id==='cash-crunch'){
+      SIM.S.cash=run.target;
+    }else if(run.id==='machine-swarm'){
+      ERP.maxActive=run.target;
+    }else if(run.id==='perfect-dock'){
+      ERP.onTime=run.target;
+    }else{
+      SIM.S.shipped=run.target;
+    }
+  }
+  try{
+    stubDom();
+    window.FLOOR={drawResource(){},refreshColors(){},visual:{}};
+    resetWorld();
+    const runs=ADVENTURE.runs||[];
+    const ids=new Set(runs.map(r=>r.id));
+    ok('six skirmishes are exposed', runs.length===6, 'count='+runs.length);
+    ok('skirmish ids are unique', ids.size===runs.length);
+    ok('timers stay in the playable window', runs.every(r=>r.seconds>=75 && r.seconds<=180), runs.map(r=>r.id+':'+r.seconds+'s').join(', '));
+    ok('targets are positive', runs.every(r=>r.target>0));
+    ok('rewards stay in the intended range', runs.every(r=>r.reward>=500 && r.reward<=3000));
+    ok('reward pacing is bounded', runs.every(r=>{
+      const perMinute=r.reward/(r.seconds/60);
+      return perMinute>=450 && perMinute<=850;
+    }), runs.map(r=>r.id+':'+Math.round(r.reward/(r.seconds/60))+'/min').join(', '));
+    for(const run of runs){
+      resetWorld();
+      const beforeWins=ADVENTURE.wins;
+      ADVENTURE.start(run.id);
+      ok(run.id+' starts', !!ADVENTURE.active && ADVENTURE.active.id===run.id);
+      forceWin(run);
+      ADVENTURE.tick(performance.now());
+      ok(run.id+' can resolve as a win', !ADVENTURE.active && ADVENTURE.wins===beforeWins+1, 'wins='+ADVENTURE.wins);
+    }
+    resetWorld();
+    const beforeLosses=JSON.parse(localStorage.getItem('globert_adventure_v1')||'{}').losses||0;
+    ADVENTURE.start('lean-sprint');
+    SIM.wip=()=>43;
+    ADVENTURE.tick(performance.now());
+    const afterLosses=JSON.parse(localStorage.getItem('globert_adventure_v1')||'{}').losses||0;
+    ok('lean sprint WIP cap can fail the run', !ADVENTURE.active && afterLosses===beforeLosses+1, 'losses='+afterLosses);
+  }catch(e){
+    ok('balance runner exception',false,e.stack||e.message);
+  }finally{
+    SIM.throughput=originalThroughput;
+    SIM.wip=originalWip;
+  }
+  const pass=results.every(r=>r.pass);
+  document.getElementById('out').textContent=results.map(r=>(r.pass?'PASS ':'FAIL ')+r.name+(r.detail?' · '+r.detail:'')).join('\n');
+  window.__BALANCE_RESULTS__={pass,results};
+})();
+</script>
+</body>
+</html>
