@@ -20,10 +20,22 @@ Open `index.html` or `Globert.html` to start from the home screen, or `Globert F
 
 ## Release Build
 
+Install dependencies once:
+
+```powershell
+npm install
+```
+
+Build the PixiJS floor enhancement:
+
+```powershell
+npm run build
+```
+
 Run this from the project folder:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File tools\build-release.ps1
+npm run release
 ```
 
 The script creates `release/globert-works` and `release/globert-works-release.zip`.

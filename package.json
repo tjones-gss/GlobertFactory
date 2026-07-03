@@ -1,0 +1,19 @@
+{
+  "name": "globert-factory",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "release": "powershell -ExecutionPolicy Bypass -File tools\\build-release.ps1"
+  },
+  "dependencies": {
+    "pixi.js": "^8.16.0"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}
+

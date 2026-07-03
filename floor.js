@@ -10,6 +10,7 @@
   let ghostDir=1;            // placement direction
   let painting=false, lastTile=null, lastButton=0;
   let tool='select';
+  let pixiLayer=null;
 
   const COL={};
   function refreshColors(){
@@ -125,6 +126,7 @@
     const gw=cam.tile*S.N, gh=cam.tile*S.N;
     cam.ox=Math.round((width-gw)/2);
     cam.oy=Math.round((height-gh)/2);
+    if(pixiLayer&&pixiLayer.resize)pixiLayer.resize();
   }
   function t2s(x,y){return [cam.ox+x*cam.tile, cam.oy+y*cam.tile];}
   function s2t(px,py){return [Math.floor((px-cam.ox)/cam.tile), Math.floor((py-cam.oy)/cam.tile)];}
@@ -179,6 +181,7 @@
     }
     // floating cash fx
     drawPopups();
+    if(pixiLayer&&pixiLayer.drawCells)pixiLayer.drawCells({sim:S,cam,hover,tool,now});
   }
 
   function drawNode(sx,sy,T,now){
@@ -408,6 +411,12 @@
     refreshColors();
     if(window.ResizeObserver) new ResizeObserver(resize).observe(canvas.parentElement||canvas);
     else window.addEventListener('resize',resize);
+    if(window.GLOBERT_PIXI&&window.GLOBERT_PIXI.createFloorLayer){
+      window.GLOBERT_PIXI.createFloorLayer({stage:canvas.parentElement||canvas}).then(layer=>{
+        pixiLayer=layer;
+        resize();
+      }).catch(()=>{pixiLayer=null;});
+    }
     resize();
     if(opts.static)return;          // preview mode: render only, no input
     canvas.addEventListener('pointerdown',onDown);

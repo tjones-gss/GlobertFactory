@@ -6,6 +6,14 @@ $ErrorActionPreference = "Stop"
 $root = Resolve-Path (Join-Path $PSScriptRoot "..")
 $out = Join-Path $root $OutDir
 $releaseRoot = Join-Path $root "release"
+if(Test-Path (Join-Path $root "package.json")){
+  Push-Location $root
+  try{
+    npm run build
+  }finally{
+    Pop-Location
+  }
+}
 $resolvedParent = Resolve-Path (Split-Path $out -Parent) -ErrorAction SilentlyContinue
 if($resolvedParent -and -not $resolvedParent.Path.StartsWith($releaseRoot, [System.StringComparison]::OrdinalIgnoreCase)){
   throw "Refusing to clean output outside release directory: $out"
